@@ -1,0 +1,20 @@
+﻿<Window x:Class="AudioCaptureToStdout.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AudioCaptureToStdout"
+        mc:Ignorable="d"
+        Title="Audio Caputure to StdOut" Height="339.386" Width="469.413">
+    <Grid x:Name="grid">
+        <Button Content="Start" HorizontalAlignment="Left" Margin="193,268,0,0" VerticalAlignment="Top" Width="85" Click="StartStopButtonClick" />
+        <StackPanel x:Name="radioButtonStackPannel" HorizontalAlignment="Left" Height="77" VerticalAlignment="Top" Width="97" Margin="5,5,0,0">
+            <RadioButton Content="NAudio" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" GroupName="InternalMode" IsChecked="True" />
+            <RadioButton Content="accord-net" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" GroupName="InternalMode" />
+        </StackPanel>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="441" />
+        <Label Content="After Commands" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="208" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="441" />
+        <Label Content="Output Path" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Width="184" />
+    </Grid>
+</Window>
