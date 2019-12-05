@@ -2,19 +2,60 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioCaptureToStdout"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:AudioCaptureToStdout.ViewModel"
+        Title="Audio Caputure to StdOut"
+        Width="469.413"
+        Height="339.386"
         mc:Ignorable="d"
-        Title="Audio Caputure to StdOut" Height="339.386" Width="469.413">
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <viewModel:RadioButtonConverter x:Key="EnumConverter" />
+    </Window.Resources>
     <Grid x:Name="grid">
-        <Button Content="Start" HorizontalAlignment="Left" Margin="193,268,0,0" VerticalAlignment="Top" Width="85" Click="StartStopButtonClick" />
-        <StackPanel x:Name="radioButtonStackPannel" HorizontalAlignment="Left" Height="77" VerticalAlignment="Top" Width="97" Margin="5,5,0,0">
-            <RadioButton Content="NAudio" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" GroupName="InternalMode" IsChecked="True" />
-            <RadioButton Content="accord-net" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" GroupName="InternalMode" />
+        <ToggleButton
+                      Margin="193,268,183,10"
+                      Click="StartStopButtonClick"
+                      Content="{Binding StartStopButtonLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsChecked="{Binding IsStartStopButtonToggled}" />
+        <StackPanel>
+
+            <RadioButton Margin="10,10,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                         Content="NAudio"
+                         GroupName="InternalMode"
+                         IsChecked="{Binding CaptureMode, ConverterParameter=NAudio, Converter={StaticResource EnumConverter}}" />
+            <RadioButton Margin="10,30,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                         Content="AccordNet"
+                         GroupName="InternalMode"
+                         IsChecked="{Binding CaptureMode, ConverterParameter=AccordNet, Converter={StaticResource EnumConverter}}" />
         </StackPanel>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="441" />
-        <Label Content="After Commands" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="208" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="441" />
-        <Label Content="Output Path" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Width="184" />
+        <Button Margin="0,228,10,0"
+                Click="SaveAsButtonClick"
+                Content="save as ..." Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" Width="70" />
+        <TextBox
+                 Height="23"
+                 Margin="10,157,10,0"
+                 VerticalAlignment="Top"
+                 TextWrapping="Wrap" />
+        <Label Width="208"
+               Margin="10,126,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Content="After Commands" />
+        <TextBox
+                 Height="23"
+                 Margin="10,228,87,0"
+                 VerticalAlignment="Top"
+                 Text="{Binding OutputPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Width="184"
+               Margin="10,197,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Content="Output Path" />
     </Grid>
 </Window>

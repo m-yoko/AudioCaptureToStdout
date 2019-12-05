@@ -1,14 +1,9 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
+using AudioCaptureToStdout.ViewModel;
+using Microsoft.Win32;
 
 namespace AudioCaptureToStdout
 {
-    public enum RadioButtonMode
-    {
-        NAudio,
-        AccordNet
-    }
-
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
@@ -17,13 +12,38 @@ namespace AudioCaptureToStdout
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
+        }
+
+        private void StateModeChange()
+        {
+            var txt = string.Empty;
+            if (((MainWindowViewModel)DataContext).IsStartStopButtonToggled)
+            {
+                txt = "Stop";
+            }
+            else
+            {
+                txt = "Start";
+            }
+            ((MainWindowViewModel)DataContext).StartStopButtonLabel = txt;
         }
 
         private void StartStopButtonClick(object sender, RoutedEventArgs e)
         {
-            foreach (System.Windows.Controls.RadioButton rButton in radioButtonStackPannel.Children)
+            StateModeChange();
+        }
+
+        private void SaveAsButtonClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "All files|*.*";
+            dialog.FilterIndex = 1;
+            dialog.Title = "Save as";
+            var result = dialog.ShowDialog();
+            if (result == true)
             {
-                Debug.WriteLine(rButton.ToString());
+                ((MainWindowViewModel)DataContext).OutputPath = dialog.FileName;
             }
         }
     }
