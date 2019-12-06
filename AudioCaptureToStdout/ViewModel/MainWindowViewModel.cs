@@ -24,16 +24,25 @@ namespace AudioCaptureToStdout.ViewModel
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || parameter == null) return false;
+            if (value == null || parameter == null)
+            {
+                return false;
+            }
 
             return value.ToString() == parameter.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || parameter == null) return Binding.DoNothing;
+            if (value == null || parameter == null)
+            {
+                return Binding.DoNothing;
+            }
 
-            if ((bool)value) return Enum.Parse(targetType, parameter.ToString());
+            if ((bool)value)
+            {
+                return Enum.Parse(targetType, parameter.ToString());
+            }
 
             return Binding.DoNothing;
         }
@@ -43,28 +52,13 @@ namespace AudioCaptureToStdout.ViewModel
     {
         private RadioButtonMode _captureMode = RadioButtonMode.NAudio;
 
+        private bool _isStartStopButtonToggled = false;
+
         private string _outputPath = string.Empty;
 
         private string _startStopButtonLabel = "Start";
 
-        private bool _isStartStopButtonToggled = false;
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public bool IsStartStopButtonToggled
-        {
-            get => _isStartStopButtonToggled;
-            set
-            {
-                if (value == _isStartStopButtonToggled)
-                {
-                    return;
-                }
-
-                _isStartStopButtonToggled = value;
-                RaisePropertyChanged();
-            }
-        }
 
         public RadioButtonMode CaptureMode
         {
@@ -77,6 +71,21 @@ namespace AudioCaptureToStdout.ViewModel
                 }
 
                 _captureMode = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsStartStopButtonToggled
+        {
+            get => _isStartStopButtonToggled;
+            set
+            {
+                if (value == _isStartStopButtonToggled)
+                {
+                    return;
+                }
+
+                _isStartStopButtonToggled = value;
                 RaisePropertyChanged();
             }
         }

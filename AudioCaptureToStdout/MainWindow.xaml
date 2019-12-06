@@ -12,9 +12,28 @@
         ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <viewModel:RadioButtonConverter x:Key="EnumConverter" />
+        <DataTemplate x:Key="ToggleButtonColorTemplate">
+            <Grid>
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Text="{Binding}"
+                           Foreground="Red" />
+            </Grid>
+        </DataTemplate>
+        <Style TargetType="ToggleButton">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="ContentTemplate" Value="{StaticResource ToggleButtonColorTemplate}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid x:Name="grid">
         <ToggleButton
+            x:Name="StartStopButton"
                       Margin="193,268,183,10"
                       Click="StartStopButtonClick"
                       Content="{Binding StartStopButtonLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
